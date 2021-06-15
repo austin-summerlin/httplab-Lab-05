@@ -1,8 +1,9 @@
+/* eslint-disable space-before-function-paren */
 const request = require('supertest');
 const app = require('../lib/app');
 
 describe('app routes', () => {
-  it('getl all from / ', async () => {
+  it('GET all from / ', async () => {
     const res = await request(app)
       .get('/');
 
@@ -11,10 +12,19 @@ describe('app routes', () => {
 
   it('/echo, POST status code 200 and plain text with the request body', async () => {
     const res = await request(app)
-      .post('/echo');
+      .post('/echo')
+      .send('hello');
 
     expect(res.status).toEqual(200);
     expect(res.text).toEqual('hello');
+  });
+
+  it('GET html with an h1 and the word red', async () => {
+    const res = await request(app)
+      .get('/red');
+
+    expect(res.status).toEqual(200);
+    expect(res.text).toEqual('red');
   });
 
 
