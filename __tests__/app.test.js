@@ -3,14 +3,14 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 describe('app routes', () => {
-  it('GET all from / ', async () => {
+  it.skip('GET all from / ', async () => {
     const res = await request(app)
       .get('/');
 
     expect(res.text).toEqual('hi');
   });
 
-  it('/echo, POST status code 200 and plain text with the request body', async () => {
+  it.skip('/echo, POST status code 200 and plain text with the request body', async () => {
     const res = await request(app)
       .post('/echo')
       .send('hello');
@@ -19,7 +19,7 @@ describe('app routes', () => {
     expect(res.text).toEqual('hello');
   });
 
-  it('GET html with an h1 and the word red', async () => {
+  it.skip('GET html with an h1 and the word red', async () => {
     const res = await request(app)
       .get('/red');
 
@@ -27,7 +27,7 @@ describe('app routes', () => {
     expect(res.text).toEqual('<h1>red</h1>');
   });
 
-  it('GET html with an h1 and the word green', async () => {
+  it.skip('GET html with an h1 and the word green', async () => {
     const res = await request(app)
       .get('/green');
 
@@ -35,7 +35,7 @@ describe('app routes', () => {
     expect(res.text).toEqual('<h1>green</h1>');
   });
 
-  it('GET html with an h1 and the word blue', async () => {
+  it.skip('GET html with an h1 and the word blue', async () => {
     const res = await request(app)
       .get('/blue');
 
@@ -43,5 +43,19 @@ describe('app routes', () => {
     expect(res.text).toEqual('<h1>blue</h1>');
   });
 
+  describe('promise route', () => {
+    it('reads the contents of the public folder via a promise', async () => {
+      const res = await request(app)
+        .get('/index.html');
+
+      expect(res.text).toEqual('<h1>hi</hi>');
+    });
+
+    it('/index, return 404 not found error', async () => {
+      const res = await request(app)
+        .get('/index');
+      expect(res.text).toEqual('Not Found');
+    });
+  });
 
 });
