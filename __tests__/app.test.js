@@ -48,7 +48,7 @@ describe('app routes', () => {
       const res = await request(app)
         .get('/index.html');
 
-      expect(res.text).toEqual('<h1>hi</hi>');
+      expect(res.text).toEqual('<h1>hi</h1>');
     });
 
     it('/index, return 404 not found error', async () => {
